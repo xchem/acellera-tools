@@ -1,0 +1,141 @@
+<tool id="proteinPrepare" name="ProteinPrepare" version="0.1.0" python_template_version="3.5">
+    <requirements>
+        <requirement type="package" version="0.1">_libgcc_mutex</requirement>
+        <requirement type="package" version="4.5">_openmp_mutex</requirement>
+        <requirement type="package" version="2019.11.28">ca-certificates</requirement>
+        <requirement type="package" version="2019.11.28">certifi</requirement>
+        <requirement type="package" version="0.10.0">cycler</requirement>
+        <requirement type="package" version="1.13.6">dbus</requirement>
+        <requirement type="package" version="4.4.1">decorator</requirement>
+        <requirement type="package" version="2.2.9">expat</requirement>
+        <requirement type="package" version="2.13.1">fontconfig</requirement>
+        <requirement type="package" version="2.10.0">freetype</requirement>
+        <requirement type="package" version="0.19.8.1">gettext</requirement>
+        <requirement type="package" version="2.58.3">glib</requirement>
+        <requirement type="package" version="1.14.5">gst-plugins-base</requirement>
+        <requirement type="package" version="1.14.5">gstreamer</requirement>
+        <requirement type="package" version="2.1.1+htmd.5">htmd-pdb2pqr</requirement>
+        <requirement type="package" version="64.2">icu</requirement>
+        <requirement type="package" version="9c">jpeg</requirement>
+        <requirement type="package" version="1.1.0">kiwisolver</requirement>
+        <requirement type="package" version="3.8.0">libblas</requirement>
+        <requirement type="package" version="3.8.0">libcblas</requirement>
+        <requirement type="package" version="9.0.1">libclang</requirement>
+        <requirement type="package" version="3.2.1">libffi</requirement>
+        <requirement type="package" version="9.2.0">libgcc-ng</requirement>
+        <requirement type="package" version="7.3.0">libgfortran-ng</requirement>
+        <requirement type="package" version="9.2.0">libgomp</requirement>
+        <requirement type="package" version="1.15">libiconv</requirement>
+        <requirement type="package" version="3.8.0">liblapack</requirement>
+        <requirement type="package" version="8.0.1">libllvm8</requirement>
+        <requirement type="package" version="9.0.1">libllvm9</requirement>
+        <requirement type="package" version="0.3.7">libopenblas</requirement>
+        <requirement type="package" version="1.6.37">libpng</requirement>
+        <requirement type="package" version="9.2.0">libstdcxx-ng</requirement>
+        <requirement type="package" version="2.32.1">libuuid</requirement>
+        <requirement type="package" version="1.13">libxcb</requirement>
+        <requirement type="package" version="0.9.1">libxkbcommon</requirement>
+        <requirement type="package" version="2.9.10">libxml2</requirement>
+        <requirement type="package" version="0.31.0">llvmlite</requirement>
+        <requirement type="package" version="3.1.3">matplotlib</requirement>
+        <requirement type="package" version="3.1.3">matplotlib-base</requirement>
+        <requirement type="package" version="0.2.3">moleculekit</requirement>
+        <requirement type="package" version="6.1">ncurses</requirement>
+        <requirement type="package" version="2.4">networkx</requirement>
+        <requirement type="package" version="4.24">nspr</requirement>
+        <requirement type="package" version="3.47">nss</requirement>
+        <requirement type="package" version="0.48.0">numba</requirement>
+        <requirement type="package" version="1.18.1">numpy</requirement>
+        <requirement type="package" version="1.1.1d">openssl</requirement>
+        <requirement type="package" version="0.25.3">pandas</requirement>
+        <requirement type="package" version="8.43">pcre</requirement>
+        <requirement type="package" version="20.0.2">pip</requirement>
+        <requirement type="package" version="3.1.8">propka</requirement>
+        <requirement type="package" version="0.4">pthread-stubs</requirement>
+        <requirement type="package" version="2.4.6">pyparsing</requirement>
+        <requirement type="package" version="5.12.3">pyqt</requirement>
+        <requirement type="package" version="3.6.7">python</requirement>
+        <requirement type="package" version="2.8.1">python-dateutil</requirement>
+        <requirement type="package" version="2019.3">pytz</requirement>
+        <requirement type="package" version="5.12.5">qt</requirement>
+        <requirement type="package" version="8.0">readline</requirement>
+        <requirement type="package" version="1.4.1">scipy</requirement>
+        <requirement type="package" version="45.1.0">setuptools</requirement>
+        <requirement type="package" version="1.14.0">six</requirement>
+        <requirement type="package" version="3.30.1">sqlite</requirement>
+        <requirement type="package" version="8.6.10">tk</requirement>
+        <requirement type="package" version="6.0.3">tornado</requirement>
+        <requirement type="package" version="4.42.1">tqdm</requirement>
+        <requirement type="package" version="0.34.2">wheel</requirement>
+        <requirement type="package" version="1.0.9">xorg-libxau</requirement>
+        <requirement type="package" version="1.1.3">xorg-libxdmcp</requirement>
+        <requirement type="package" version="5.2.4">xz</requirement>
+        <requirement type="package" version="1.2.11">zlib</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        ln -s '$protein_pdb' input.pdb &&
+        python '$__tool_directory__/app.py'
+        -pdb input.pdb -pH $pH -chain $chain
+
+        #if $rmwater
+        --remove-water
+        #end if
+
+        #if $includehet
+        --include-heteroatoms
+        #end if
+
+    ]]>
+    </command>
+    <inputs>
+        <param type="data" name="protein_pdb" format="pdb" />
+        <param name="pH" type="float" value="7.2" label="pH for preparation"/>
+        <param name="chain" type="text" value="all" label="chains to be used"/>
+        <param name="rmwater" type="boolean" truevalue="Y" falsevalue="N" checked="false" optional="true" label="remove waters"/>
+        <param name="includehet" type="boolean" truevalue="Y" falsevalue="N" checked="false" optional="true" label="optimize heteroatoms"/>
+    </inputs>
+    <outputs>
+        <data name="output" format="pdb" from_work_dir="output.pdb" />
+        <data name="output_csv" format="csv" from_work_dir="details.csv" />
+        <data name="output_pickle" format="pickle" from_work_dir="job_content.pickle" />
+        <data name="output_svg" format="svg" from_work_dir="protonation_diagram.svg" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="protein_pdb" value="3ptb.pdb"/>
+            <param name="pH" value="7.2"/>
+            <param name="chain" value="all"/>
+            <output name="output" file="output.pdb"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+
+
+Prepare a protein for MD simulations using PROPKA 3.1 for residue titration
+and PDB2PQR 2.1 to optimize the hydrogen bond network. 
+
+Check license conditions at: https://software.acellera.com/news/license.pdf
+
+optional arguments:
+  -pH                pH at which residues will be titrated (default: 7.2)
+
+  -chain          chains to be used in ProteinPrepare (e.g.: -chain A B;
+                        default: all)
+
+  --remove-water        ignore water molecules in the optimization (default:
+                        False)
+
+  --include-heteroatoms        include heteroatoms in the optimization (default:
+                        False)
+
+
+required args:
+  -pdb        .pdb file
+
+    ]]></help>
+
+    <citations>
+        <citation type="doi">10.1021/acs.jcim.7b00190</citation>
+    </citations>
+
+</tool>
