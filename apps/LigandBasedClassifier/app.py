@@ -86,7 +86,8 @@ class LigandBinderClassifier:
         logger = logging.getLogger('LigandBinderClassifier')
         logger.setLevel(logging.DEBUG)
         formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-        ch = logging.StreamHandler()
+        #ch = logging.StreamHandler()
+        ch = logging.FileHandler('LigandBasedClassifier.log')
         ch.setFormatter(formatter)
         logger.addHandler(ch)
         self.logger = logger
@@ -199,7 +200,7 @@ class LigandBinderClassifier:
             objective_name='map',
             total_trials=self.vars.hp_trials
         )
-        output_model_name = 'model_{}.pickle'.format(int(time.time()))
+        output_model_name = 'model_{}.pickle'.format('fragalysis')
         self.logger.info("Saving pre-trained model at: {}".format(output_model_name))
         pickle.dump(opt_models, open(output_model_name, "wb"))
 
@@ -208,7 +209,7 @@ class LigandBinderClassifier:
         preds = self._run_averaging_ensemble(opt_models, X)
         output_df = pd.DataFrame(data.smiles)
         output_df['predictions'] = preds[:, 1]
-        output_name = "predictions_{}.csv".format(int(time.time()))
+        output_name = "predictions_fragalysis.csv"
         self.logger.info("Writing predictions to {}".format(output_name))
         output_df.to_csv(output_name, index=False, header=False)
 
@@ -260,6 +261,10 @@ class LigandBinderClassifier:
         for quantile in [0.01, 0.05]+list(np.arange(0.1, 1.1, 0.1)):
             enrichments.append(self._calculate_enrichment(preds, y_test, quantile))
         auc = self._calculate_auc(y_test, preds)
+        output_model_name = 'model_{}.pickle'.format('fragalysis')
+        self.logger.info("Saving pre-trained model at: {}".format(output_model_name))
+        pickle.dump(opt_models, open(output_model_name, "wb"))
+
 
     def run(self):
         data = self._load_data(self.vars.csv)

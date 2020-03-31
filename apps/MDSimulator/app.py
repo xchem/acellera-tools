@@ -136,6 +136,9 @@ class MDSimulator:
             refmol, eqsim, prodsim = self.AnalyzeTrajectories(esims, psim, trj_id)  # n+1)
             self.prepareOutputs(refmol, eqsim, prodsim, n+1)
 
+        shutil.make_archive('output', 'zip', self.vars.outdir)
+
+
     def _toAnalyze(self, nruns, sims_completed):
 
         toanalyze_eq = []

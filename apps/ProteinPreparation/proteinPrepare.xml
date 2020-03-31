@@ -87,6 +87,7 @@
 
     ]]>
     </command>
+
     <inputs>
         <param type="data" name="protein_pdb" format="pdb" />
         <param name="pH" type="float" value="7.2" label="pH for preparation"/>
@@ -116,21 +117,17 @@ and PDB2PQR 2.1 to optimize the hydrogen bond network.
 
 Check license conditions at: https://software.acellera.com/news/license.pdf
 
-optional arguments:
-  -pH                pH at which residues will be titrated (default: 7.2)
+This application adds apropiate hydrogens to a protein provided in .pdb format.
 
-  -chain          chains to be used in ProteinPrepare (e.g.: -chain A B;
+You can set the pH at which residues will be titrated (default: 7.2)
+
+You can also select the chains to be used (A; A B; etc.
                         default: all)
 
-  --remove-water        ignore water molecules in the optimization (default:
+If remove waters is set to true, then ProteinPrepare ignores water molecules during optimization.
+
+Finally, if optimze heteroatoms is set to true, these atoms will be considered during the hydrogen bond networks optimization (default:
                         False)
-
-  --include-heteroatoms        include heteroatoms in the optimization (default:
-                        False)
-
-
-required args:
-  -pdb        .pdb file
 
     ]]></help>
 

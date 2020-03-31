@@ -1,0 +1,171 @@
+<tool id="LigandClassifier" name="LigandClassifier" version="0.1.0" python_template_version="3.5">
+    <requirements>
+        <requirement type="package" version="0.1">_libgcc_mutex</requirement>
+        <requirement type="package" version="4.5">_openmp_mutex</requirement>
+        <requirement type="package" version="0.1.9">ax-platform</requirement>
+        <requirement type="package" version="0.2.1">botorch</requirement>
+        <requirement type="package" version="1.0.8">bzip2</requirement>
+        <requirement type="package" version="2019.11.28">ca-certificates</requirement>
+        <requirement type="package" version="1.16.0">cairo</requirement>
+        <requirement type="package" version="2019.11.28">certifi</requirement>
+        <requirement type="package" version="2.13.1">fontconfig</requirement>
+        <requirement type="package" version="2.10.0">freetype</requirement>
+        <requirement type="package" version="0.19.8.1">gettext</requirement>
+        <requirement type="package" version="2.58.3">glib</requirement>
+        <requirement type="package" version="1.0.1">gpytorch</requirement>
+        <requirement type="package" version="58.2">icu</requirement>
+        <requirement type="package" version="2.11.1">jinja2</requirement>
+        <requirement type="package" version="0.14.1">joblib</requirement>
+        <requirement type="package" version="9c">jpeg</requirement>
+        <requirement type="package" version="3.8.0">libblas</requirement>
+        <requirement type="package" version="1.67.0">libboost</requirement>
+        <requirement type="package" version="3.8.0">libcblas</requirement>
+        <requirement type="package" version="3.2.1">libffi</requirement>
+        <requirement type="package" version="9.2.0">libgcc-ng</requirement>
+        <requirement type="package" version="7.3.0">libgfortran-ng</requirement>
+        <requirement type="package" version="9.2.0">libgomp</requirement>
+        <requirement type="package" version="1.15">libiconv</requirement>
+        <requirement type="package" version="3.8.0">liblapack</requirement>
+        <requirement type="package" version="0.3.7">libopenblas</requirement>
+        <requirement type="package" version="1.6.37">libpng</requirement>
+        <requirement type="package" version="9.2.0">libstdcxx-ng</requirement>
+        <requirement type="package" version="4.1.0">libtiff</requirement>
+        <requirement type="package" version="2.32.1">libuuid</requirement>
+        <requirement type="package" version="1.13">libxcb</requirement>
+        <requirement type="package" version="2.9.9">libxml2</requirement>
+        <requirement type="package" version="1.8.3">lz4-c</requirement>
+        <requirement type="package" version="1.1.1">markupsafe</requirement>
+        <requirement type="package" version="6.1">ncurses</requirement>
+        <requirement type="package" version="1.18.1">numpy</requirement>
+        <requirement type="package" version="0.46">olefile</requirement>
+        <requirement type="package" version="1.1.1d">openssl</requirement>
+        <requirement type="package" version="1.0.1">pandas</requirement>
+        <requirement type="package" version="8.44">pcre</requirement>
+        <requirement type="package" version="7.0.0">pillow</requirement>
+        <requirement type="package" version="20.0.2">pip</requirement>
+        <requirement type="package" version="0.38.0">pixman</requirement>
+        <requirement type="package" version="4.5.0">plotly</requirement>
+        <requirement type="package" version="0.4">pthread-stubs</requirement>
+        <requirement type="package" version="1.67.0">py-boost</requirement>
+        <requirement type="package" version="3.6.7">python</requirement>
+        <requirement type="package" version="2.8.1">python-dateutil</requirement>
+        <requirement type="package" version="2019.3">pytz</requirement>
+        <requirement type="package">rdkit</requirement>
+        <requirement type="package" version="8.0">readline</requirement>
+        <requirement type="package" version="1.3.3">retrying</requirement>
+        <requirement type="package" version="0.22.1">scikit-learn</requirement>
+        <requirement type="package" version="1.4.1">scipy</requirement>
+        <requirement type="package" version="45.2.0">setuptools</requirement>
+        <requirement type="package" version="1.14.0">six</requirement>
+        <requirement type="package" version="3.30.1">sqlite</requirement>
+        <requirement type="package" version="8.6.10">tk</requirement>
+        <requirement type="package" version="4.42.1">tqdm</requirement>
+        <requirement type="package" version="0.34.2">wheel</requirement>
+        <requirement type="package" version="0.90">xgboost</requirement>
+        <requirement type="package" version="1.0.7">xorg-kbproto</requirement>
+        <requirement type="package" version="1.0.10">xorg-libice</requirement>
+        <requirement type="package" version="1.2.3">xorg-libsm</requirement>
+        <requirement type="package" version="1.6.9">xorg-libx11</requirement>
+        <requirement type="package" version="1.0.9">xorg-libxau</requirement>
+        <requirement type="package" version="1.1.3">xorg-libxdmcp</requirement>
+        <requirement type="package" version="1.3.4">xorg-libxext</requirement>
+        <requirement type="package" version="0.9.10">xorg-libxrender</requirement>
+        <requirement type="package" version="0.11.1">xorg-renderproto</requirement>
+        <requirement type="package" version="7.3.0">xorg-xextproto</requirement>
+        <requirement type="package" version="7.0.31">xorg-xproto</requirement>
+        <requirement type="package" version="5.2.4">xz</requirement>
+        <requirement type="package" version="1.2.11">zlib</requirement>
+        <requirement type="package" version="1.4.4">zstd</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        ln -s '$input' input.csv &&
+        python '$__tool_directory__/app.py'
+        input.csv
+
+        #if $mode == 'train':
+        --train
+            #if $opt_metric
+            --optimization_metric $opt_metric
+            #end if
+
+            #if $hp_trials
+            --hp_trials $hp_trials
+            #end if
+        #end if
+
+        #if $mode == 'validate':
+        --validate
+            #if $opt_metric
+            --optimization_metric $opt_metric
+            #end if
+
+            #if $hp_trials
+            --hp_trials $hp_trials
+            #end if
+        #end if
+
+        #if $mode == 'predict':
+        --predict --model $model
+        #end if
+
+    ]]>
+    </command>
+    <inputs>
+        <param type="data" name="input" format="csv" />
+        <param type="data" name="model" format="pickle" optional="true"/>
+
+        <param name="mode" type="select" label="Train/Validation/Predict">
+            <option value="train" selected="true">Train mode</option>
+            <option value="validate">Validation mode</option>
+            <option value="predict">Predict mode (requires a model)</option>
+        </param>
+
+        <param name="hp_trials" type="integer" value="5" optional="true" label="Number of hyperparameter (hp) search rounds. Default is 100"/>
+        <param name="opt_metric" type="text" value="map" optional="true" label="Metric to optimize by HP tuning. See eval_metric in https://xgboost.readthedocs.io/en/latest/parameter.html"/>
+
+    </inputs>
+    <outputs>
+        <data name="model_output" format="pickle" from_work_dir="model_fragalysis.pickle" optional="true" />
+        <data name="logs" format="log" from_work_dir="LigandBasedClassifier.log" />
+        <data name="pred_csv" format="csv" from_work_dir="predictions_fragalysis.csv" optional="true" />
+
+    </outputs>
+    <tests>
+        <test>
+            <param name="input" value="input.csv"/>
+            <param name="mode" value="train"/>
+            <output name="model_output" file="model_fragalysis.pickle" compare="sim_size" delta="1000000"/>
+        </test>
+
+        <test>
+            <param name="input" value="input_predict.csv"/>
+            <param name="mode" value="predict"/>
+            <param name="model" value="model_fragalysis.pickle"/>
+            <output name="pred_csv" file="pred_csv.csv" compare="sim_size" delta="1000"/>
+        </test>
+
+
+    </tests>
+    <help><![CDATA[
+
+
+Trains a model based on a csv file of binders and not binders, or, if given a trained model, predicts the probability of binding for each smiles in the .csv file.
+
+Check license conditions at: https://software.acellera.com/news/license.pdf
+
+3 modes are available: Train, Validation and Predict. Validation is the same as Train but with more verbose logging. 
+
+Hyperparameter search is available, and the number of rounds of "searching" can be set by the user. The metric to optimize can be chosen among: map(mean average precision), auc(area under the curve), aucpr(area under precision-recall curve) or any other metric supported by XGBoost(https://xgboost.readthedocs.io/en/latest/parameter.html).
+
+The .csv file should looks as follows:
+
+OCC=1C=CC(=CC1)N2C=NC=3C=CC=CC23,0
+
+OCC=1C=CC=CC1N2CCOCC2,1
+
+OCCN1C=NC=CC1=O,0
+
+Even when running in Predict mode, please provide a number in the second column.
+
+    ]]></help>
+</tool>

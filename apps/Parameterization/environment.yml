@@ -1,4 +1,4 @@
-name: parameterize
+name: paramenv
 channels:
   - conda-forge
   - defaults

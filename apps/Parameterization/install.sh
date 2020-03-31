@@ -1,1 +1,1 @@
-conda install parameterize -c acellera
+conda install -c acellera parameterize

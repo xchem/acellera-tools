@@ -1,0 +1,86 @@
+<tool id="MDSimulator" name="MDSimulator" version="0.1.0" python_template_version="3.5">
+    <requirements>
+        <requirement type="package" version="1.21.2">htmd</requirement>
+        <requirement type="package" version="0.2.8">moleculekit</requirement>
+    </requirements>
+
+
+    <command detect_errors="exit_code"><![CDATA[
+        ln -s '$struct_pdb' structure.pdb &&
+        ln -s '$struct_prmtop' structure.prmtop &&
+        mkdir -p build &&
+        cp structure.* build/ &&
+        python '$__tool_directory__/app.py' -inputdir build -constraints $run_type --use-gpu
+
+        #if $runtime
+        -runtime $runtime
+        #end if
+
+        #if $equiltime
+        -equiltime $equiltime
+        #end if
+
+        #if $ligresname
+        -ligresname $ligresname
+        #end if
+
+        #if $usegpu
+        --use-gpu
+        #end if
+
+
+    ]]></command>
+    <inputs>
+        <param type="data" name="struct_pdb" format="pdb" />
+        <param type="data" name="struct_prmtop" format="prmtop"/>
+        <param name="equiltime" type="integer" value="3" optional="true" label="Equilibration time. Default is 3 ns"/>
+        <param name="runtime" type="integer" value="5" optional="true" label="Simulation time. Default is 5 ns"/>
+
+        <param name="run_type" type="select" label="Protocol type: protein or protein-ligand">
+            <option value="protein" selected="true">Protein</option>
+            <option value="protein-ligand">Protein and ligand (please specify resname of the ligand below)</option>
+        </param>
+
+        <param name="ligresname" type="text" optional="true" label="Resname of the ligand molecule, if present."/>
+        <param name="usegpu" type="boolean" truevalue="Y" falsevalue="N" checked="false" optional="true" label="Use GPU to speed up computation"/>
+    </inputs>
+    <outputs>
+        <data name="zip_output" format="zip" from_work_dir="output.zip" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="struct_pdb" value="prot_only.pdb"/>
+            <param name="struct_prmtop" value="prot_only.prmtop"/>
+            <param name="run_type" value="protein"/>
+            <param name="runtime" value="1"/>
+            <param name="equiltime" value="1"/>
+            <param name="usegpu" value="Y"/>
+            <output name="zip_output" file="prot_run.zip" compare="sim_size" delta="1000000"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+
+Performs a simple MD simulation to a protein or protein-ligand system.
+
+Check license conditions at: https://software.acellera.com/news/license.pdf
+
+The .pdb file and the .prmtop file of the built system must be provided.
+
+First, an equilibration step is run for the time specified.
+
+Finally, a production run of the specified time follows.
+
+This applications supports protein or protein-ligand systems.
+
+In case a protein-ligand system is provided, the resname of the ligand has to be defined (usually MOL)
+
+GPU can be used if available to speed up computations.
+
+    ]]></help>
+
+    <citations>
+        <citation type="doi">10.1021/ct9000685</citation>
+        <citation type="doi">10.1021/acs.jctc.6b00049</citation>
+    </citations>
+
+</tool>
