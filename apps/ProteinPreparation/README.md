@@ -10,4 +10,9 @@ You should then be able to navigate to http://127.0.0.1:8080/ and run ProteinPre
 
 Running these commands with a conda environment activated can cause problems, even if it is the "base" environment. Planemo must be installed out of any conda environment.
 
+To run locally:
 
+```conda env create -f environment.yml```, activate the environment, and then run:
+
+
+```python app.py -pdb test-data/3ptb.pdb```
