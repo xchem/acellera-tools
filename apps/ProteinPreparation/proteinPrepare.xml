@@ -73,16 +73,18 @@
         <requirement type="package" version="1.2.11">zlib</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        ln -s '$protein_pdb' input.pdb &&
-        python '$__tool_directory__/app.py'
-        -pdb input.pdb -pH $pH -chain $chain
+        #if $license_check
+            ln -s '$protein_pdb' input.pdb &&
+            python '$__tool_directory__/app.py'
+            -pdb input.pdb -pH $pH -chain $chain
 
-        #if $rmwater
-        --remove-water
-        #end if
+            #if $rmwater
+            --remove-water
+            #end if
 
-        #if $includehet
-        --include-heteroatoms
+            #if $includehet
+            --include-heteroatoms
+            #end if
         #end if
 
     ]]>
@@ -94,6 +96,11 @@
         <param name="chain" type="text" value="all" label="chains to be used"/>
         <param name="rmwater" type="boolean" truevalue="Y" falsevalue="N" checked="false" optional="true" label="remove waters"/>
         <param name="includehet" type="boolean" truevalue="Y" falsevalue="N" checked="false" optional="true" label="optimize heteroatoms"/>
+        <param name="license_check" type="select" label="I accept the license conditions (https://software.acellera.com/news/license.pdf) and declare that I will not use this app for profit purposes.">
+          <option value="false">I do not accept</option>
+          <option value="true">I accept</option>
+          <validator type="regex" message="You must accept the conditions first.">not</validator>
+        </param>
     </inputs>
     <outputs>
         <data name="output" format="pdb" from_work_dir="output.pdb" />
