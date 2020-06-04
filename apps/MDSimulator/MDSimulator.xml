@@ -63,6 +63,7 @@
             <param name="runtime" value="1"/>
             <param name="equiltime" value="1"/>
             <param name="usegpu" value="Y"/>
+            <param name="license_check" value="true"/>
             <output name="zip_output" file="prot_run.zip" compare="sim_size" delta="1000000"/>
         </test>
     </tests>

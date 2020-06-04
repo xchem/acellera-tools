@@ -113,6 +113,7 @@
             <param name="protein_pdb" value="3ptb.pdb"/>
             <param name="pH" value="7.2"/>
             <param name="chain" value="all"/>
+            <param name="license_check" value="true"/>
             <output name="output" file="output.pdb"/>
         </test>
     </tests>

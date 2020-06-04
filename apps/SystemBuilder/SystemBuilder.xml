@@ -47,11 +47,13 @@
             <param name="protein_pdb" value="input.pdb"/>
             <param name="ligand" value="mol-orig.mol2"/>
             <param name="ligfrcmod" value="mol.frcmod"/>
+            <param name="license_check" value="true"/>
             <output name="struct_prmtop" file="structure.prmtop" compare="sim_size"/>
             <output name="struct_pdb" file="structure.pdb" compare="sim_size"/>
         </test>
         <test>
             <param name="protein_pdb" value="input.pdb"/>
+            <param name="license_check" value="true"/>
             <output name="struct_prmtop" file="structure.prmtop" compare="sim_size" delta="100000"/>
             <output name="struct_pdb" file="structure.pdb" compare="sim_size" delta="100000"/>
         </test>

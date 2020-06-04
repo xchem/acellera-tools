@@ -64,7 +64,7 @@ import numpy as np
 from glob import glob
 
 sys.setrecursionlimit(25000)
-from htmd.tools.system_builder import SystemBuilder
+from moleculekit.tools.prot_prep import SystemBuilder
 
 
 def getArgParser():

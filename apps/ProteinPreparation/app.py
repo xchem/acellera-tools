@@ -64,7 +64,7 @@ import sys
 import numpy as np
 import pickle
 import re
-from htmd.tools.protein_preparator import ProteinPreparator
+from moleculekit.tools.prot_prep import ProteinPreparator
 
 sys.setrecursionlimit(25000)
 

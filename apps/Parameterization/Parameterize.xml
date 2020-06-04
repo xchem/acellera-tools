@@ -34,6 +34,7 @@
     <tests>
         <test>
             <param name="molecule" value="nilotinib.mol2"/>
+            <param name="license_check" value="true"/>
             <output name="molout" file="mytest.mol2" compare="sim_size"/>
         </test>
     </tests>

@@ -142,6 +142,7 @@
         <test>
             <param name="input" value="input.csv"/>
             <param name="mode" value="train"/>
+            <param name="license_check" value="true"/>
             <output name="model_output" file="model_fragalysis.pickle" compare="sim_size" delta="1000000"/>
         </test>
 
@@ -149,6 +150,7 @@
             <param name="input" value="input_predict.csv"/>
             <param name="mode" value="predict"/>
             <param name="model" value="model_fragalysis.pickle"/>
+            <param name="license_check" value="true"/>
             <output name="pred_csv" file="pred_csv.csv" compare="sim_size" delta="1000"/>
         </test>
 
