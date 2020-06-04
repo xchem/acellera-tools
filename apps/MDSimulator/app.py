@@ -112,3 +112,5 @@ if __name__ == '__main__':
 
     args, service = parser.parse_known_args()
     MDSimulator(args=vars(args)).run()
+    #python app.py -inputdir test-data/build_system -runtime 2 -outdir myout -equiltime 2 --use-gpu -constraints protein
+    #python app.py -inputdir test-data/build_ligprot -runtime 2 -outdir myprotlig -equiltime 2 -ligresname MOL --use-gpu -constraints protein-ligand

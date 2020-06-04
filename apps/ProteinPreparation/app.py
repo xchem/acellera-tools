@@ -95,3 +95,4 @@ if __name__ == '__main__':
     parser = getArgParser()
     args, service = parser.parse_known_args()
     ProteinPreparator(args=vars(args)).run()
+    #python app.py -pdb test-data/3ptb.pdb

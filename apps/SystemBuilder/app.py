@@ -64,7 +64,7 @@ import numpy as np
 from glob import glob
 
 sys.setrecursionlimit(25000)
-from moleculekit.tools.prot_prep import SystemBuilder
+from moleculekit.tools.system_builder import SystemBuilder
 
 
 def getArgParser():
@@ -96,5 +96,5 @@ if __name__ == '__main__':
 
     args, service = parser.parse_known_args()
     SystemBuilder(args=vars(args)).run()
-
+    #python app.py -protein test-data/input.pdb -outdir myout
 

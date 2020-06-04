@@ -74,7 +74,7 @@ from sklearn.model_selection import StratifiedKFold
 import logging
 import pickle
 import time
-from moleculekit.tools.ligand_classifier.py import LigandBinderClassifier
+from moleculekit.tools.ligand_classifier import LigandBinderClassifier
 
 def getArgParser():
     parser = argparse.ArgumentParser(description='Ligand-based binder/non-binder classifier based on XGBoost, '
@@ -105,3 +105,9 @@ if __name__ == '__main__':
     parser = getArgParser()
     args, service = parser.parse_known_args()
     LigandBinderClassifier(args=vars(args)).run()
+    #python app.py -csv test-data/input.csv --train 
+    #python app.py -csv test-data/input_predict.csv --predict --model test-data/model_fragalysis.pickle 
+
+
+
+
