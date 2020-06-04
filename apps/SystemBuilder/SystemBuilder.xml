@@ -4,24 +4,26 @@
         <requirement type="package" version="0.2.8">moleculekit</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        ln -s '$protein_pdb' input.pdb &&
-        #if $ligand
-        ln -s '$ligand' lig.mol2 &&
-        ln -s '$ligfrcmod' lig.frcmod &&
-        #end if
-        python '$__tool_directory__/app.py'
-        -protein input.pdb
+        #if $license_check
+            ln -s '$protein_pdb' input.pdb &&
+            #if $ligand
+            ln -s '$ligand' lig.mol2 &&
+            ln -s '$ligfrcmod' lig.frcmod &&
+            #end if
+            python '$__tool_directory__/app.py'
+            -protein input.pdb
 
-        #if $ligand
-        -ligand lig.mol2 -ligfrcmod lig.frcmod
-        #end if
+            #if $ligand
+            -ligand lig.mol2 -ligfrcmod lig.frcmod
+            #end if
 
-        #if $saltconc
-        -saltconc $saltconc
-        #end if
+            #if $saltconc
+            -saltconc $saltconc
+            #end if
 
-        #if $mindist
-        -mindist $mindist
+            #if $mindist
+            -mindist $mindist
+            #end if
         #end if
     ]]></command>
     <inputs>
@@ -30,6 +32,11 @@
         <param type="data" name="ligfrcmod" format="frcmod" optional="true"/>
         <param name="saltconc" type="float" value="0.0" optional="true" label="The salt concentration in molar (M)"/>
         <param name="mindist" type="float" value="0.0" optional="true" label="Additional water padding to add to the system"/>
+        <param name="license_check" type="select" label="I accept the license conditions (https://software.acellera.com/news/license.pdf) and declare that I will not use this app for profit purposes.">
+          <option value="false">I do not accept</option>
+          <option value="true">I accept</option>
+          <validator type="regex" message="You must accept the conditions first.">not</validator>
+        </param>
     </inputs>
     <outputs>
         <data name="struct_pdb" format="pdb" from_work_dir="build_1/structure.pdb" />

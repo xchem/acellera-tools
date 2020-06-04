@@ -4,19 +4,26 @@
     </requirements>
 
     <command detect_errors="exit_code"><![CDATA[
-        ln -s '$molecule' mymol.mol2 &&
+        #if $license_check
+            ln -s '$molecule' mymol.mol2 &&
 
-        #if  $charge
-        -c $charge
+            #if  $charge
+            -c $charge
+            #end if
+
+            parameterize --no-dihed --charge-type Gasteiger --seed 01 mymol.mol2
         #end if
-
-        parameterize --no-dihed --charge-type Gasteiger --seed 01 mymol.mol2
     ]]>
     </command>
 
     <inputs>
         <param type="data" name="molecule" format="mol2" />
         <param name="charge" type="integer" optional="true" label="Global charge. Defauls to sum of partial charges."/>
+        <param name="license_check" type="select" label="I accept the license conditions (https://software.acellera.com/news/license.pdf) and declare that I will not use this app for profit purposes.">
+          <option value="false">I do not accept</option>
+          <option value="true">I accept</option>
+          <validator type="regex" message="You must accept the conditions first.">not</validator>
+        </param>
     </inputs>
     <outputs>
         <data name="molout" format="mol2" from_work_dir="parameters/GAFF2/mol.mol2" />

@@ -6,28 +6,29 @@
 
 
     <command detect_errors="exit_code"><![CDATA[
-        ln -s '$struct_pdb' structure.pdb &&
-        ln -s '$struct_prmtop' structure.prmtop &&
-        mkdir -p build &&
-        cp structure.* build/ &&
-        python '$__tool_directory__/app.py' -inputdir build -constraints $run_type --use-gpu
+        #if $license_check
+            ln -s '$struct_pdb' structure.pdb &&
+            ln -s '$struct_prmtop' structure.prmtop &&
+            mkdir -p build &&
+            cp structure.* build/ &&
+            python '$__tool_directory__/app.py' -inputdir build -constraints $run_type --use-gpu
 
-        #if $runtime
-        -runtime $runtime
+            #if $runtime
+            -runtime $runtime
+            #end if
+
+            #if $equiltime
+            -equiltime $equiltime
+            #end if
+
+            #if $ligresname
+            -ligresname $ligresname
+            #end if
+
+            #if $usegpu
+            --use-gpu
+            #end if
         #end if
-
-        #if $equiltime
-        -equiltime $equiltime
-        #end if
-
-        #if $ligresname
-        -ligresname $ligresname
-        #end if
-
-        #if $usegpu
-        --use-gpu
-        #end if
-
 
     ]]></command>
     <inputs>
@@ -39,6 +40,13 @@
         <param name="run_type" type="select" label="Protocol type: protein or protein-ligand">
             <option value="protein" selected="true">Protein</option>
             <option value="protein-ligand">Protein and ligand (please specify resname of the ligand below)</option>
+
+        <param name="license_check" type="select" label="I accept the license conditions (https://software.acellera.com/news/license.pdf) and declare that I will not use this app for profit purposes.">
+          <option value="false">I do not accept</option>
+          <option value="true">I accept</option>
+          <validator type="regex" message="You must accept the conditions first.">not</validator>
+        </param>
+
         </param>
 
         <param name="ligresname" type="text" optional="true" label="Resname of the ligand molecule, if present."/>

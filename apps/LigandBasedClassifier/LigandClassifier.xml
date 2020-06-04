@@ -78,34 +78,36 @@
         <requirement type="package" version="1.4.4">zstd</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        ln -s '$input' input.csv &&
-        python '$__tool_directory__/app.py'
-        input.csv
+        #if $license_check
+            ln -s '$input' input.csv &&
+            python '$__tool_directory__/app.py'
+            input.csv
 
-        #if $mode == 'train':
-        --train
-            #if $opt_metric
-            --optimization_metric $opt_metric
+            #if $mode == 'train':
+            --train
+                #if $opt_metric
+                --optimization_metric $opt_metric
+                #end if
+
+                #if $hp_trials
+                --hp_trials $hp_trials
+                #end if
             #end if
 
-            #if $hp_trials
-            --hp_trials $hp_trials
-            #end if
-        #end if
+            #if $mode == 'validate':
+            --validate
+                #if $opt_metric
+                --optimization_metric $opt_metric
+                #end if
 
-        #if $mode == 'validate':
-        --validate
-            #if $opt_metric
-            --optimization_metric $opt_metric
+                #if $hp_trials
+                --hp_trials $hp_trials
+                #end if
             #end if
 
-            #if $hp_trials
-            --hp_trials $hp_trials
+            #if $mode == 'predict':
+            --predict --model $model
             #end if
-        #end if
-
-        #if $mode == 'predict':
-        --predict --model $model
         #end if
 
     ]]>
@@ -122,6 +124,12 @@
 
         <param name="hp_trials" type="integer" value="5" optional="true" label="Number of hyperparameter (hp) search rounds. Default is 100"/>
         <param name="opt_metric" type="text" value="map" optional="true" label="Metric to optimize by HP tuning. See eval_metric in https://xgboost.readthedocs.io/en/latest/parameter.html"/>
+
+        <param name="license_check" type="select" label="I accept the license conditions (https://software.acellera.com/news/license.pdf) and declare that I will not use this app for profit purposes.">
+          <option value="false">I do not accept</option>
+          <option value="true">I accept</option>
+          <validator type="regex" message="You must accept the conditions first.">not</validator>
+        </param>
 
     </inputs>
     <outputs>
