@@ -1,5 +1,6 @@
 <tool id="proteinPrepare" name="ProteinPrepare" version="0.1.0" python_template_version="3.5">
     <requirements>
+        <requirement type="package" version="0.0.5">fragalysis</requirement>
         <requirement type="package" version="0.1">_libgcc_mutex</requirement>
         <requirement type="package" version="4.5">_openmp_mutex</requirement>
         <requirement type="package" version="2019.11.28">ca-certificates</requirement>
@@ -99,7 +100,7 @@
         <param name="license_check" type="select" label="I accept the license conditions (https://software.acellera.com/news/license.pdf) and declare that I will not use this app for profit purposes.">
           <option value="false">I do not accept</option>
           <option value="true">I accept</option>
-          <validator type="regex" message="You must accept the conditions first.">not</validator>
+          <validator type="expression" message="You must accept the conditions first.">'fal' not in value</validator>
         </param>
     </inputs>
     <outputs>

@@ -65,7 +65,7 @@ from glob import glob
 from tqdm import trange, tqdm
 from htmd.units import convert
 from htmd.projections.metric import Metric
-from moleculekit.tools.md_simulator import MDSimulator
+from fragalysis.apps.mdsimulator.md_simulator import MDSimulator
 from time import sleep
 
 sys.setrecursionlimit(25000)

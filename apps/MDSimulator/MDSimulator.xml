@@ -2,6 +2,7 @@
     <requirements>
         <requirement type="package" version="1.21.2">htmd</requirement>
         <requirement type="package" version="0.2.8">moleculekit</requirement>
+        <requirement type="package" version="0.0.5">fragalysis</requirement>
     </requirements>
 
 
@@ -40,13 +41,12 @@
         <param name="run_type" type="select" label="Protocol type: protein or protein-ligand">
             <option value="protein" selected="true">Protein</option>
             <option value="protein-ligand">Protein and ligand (please specify resname of the ligand below)</option>
+        </param>
 
         <param name="license_check" type="select" label="I accept the license conditions (https://software.acellera.com/news/license.pdf) and declare that I will not use this app for profit purposes.">
           <option value="false">I do not accept</option>
           <option value="true">I accept</option>
-          <validator type="regex" message="You must accept the conditions first.">not</validator>
-        </param>
-
+          <validator type="expression" message="You must accept the conditions first.">'fal' not in value</validator>
         </param>
 
         <param name="ligresname" type="text" optional="true" label="Resname of the ligand molecule, if present."/>
@@ -58,12 +58,12 @@
     <tests>
         <test>
             <param name="struct_pdb" value="prot_only.pdb"/>
+            <param name="license_check" value="true"/>
             <param name="struct_prmtop" value="prot_only.prmtop"/>
             <param name="run_type" value="protein"/>
             <param name="runtime" value="1"/>
             <param name="equiltime" value="1"/>
             <param name="usegpu" value="Y"/>
-            <param name="license_check" value="true"/>
             <output name="zip_output" file="prot_run.zip" compare="sim_size" delta="1000000"/>
         </test>
     </tests>
