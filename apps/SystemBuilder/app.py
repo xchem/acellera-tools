@@ -64,7 +64,7 @@ import numpy as np
 from glob import glob
 
 sys.setrecursionlimit(25000)
-from moleculekit.tools.system_builder import SystemBuilder
+from fragalysis.apps.systembuilder.system_builder import SystemBuilder
 
 
 def getArgParser():

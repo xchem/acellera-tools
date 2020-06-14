@@ -1,7 +1,6 @@
-<tool id="MDSimulator" name="MDSimulator" version="0.1.0" python_template_version="3.5">
+<tool id="MDSimulator" name="MDSimulator" version="0.1.0" python_template_version="3.6">
     <requirements>
         <requirement type="package" version="1.21.2">htmd</requirement>
-        <requirement type="package" version="0.2.8">moleculekit</requirement>
         <requirement type="package" version="0.0.5">fragalysis</requirement>
     </requirements>
 

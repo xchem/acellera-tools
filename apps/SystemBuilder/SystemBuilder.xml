@@ -1,7 +1,7 @@
-<tool id="SystemBuilder" name="SystemBuilder" version="0.1.0" python_template_version="3.5">
+<tool id="SystemBuilder" name="SystemBuilder" version="0.1.0" python_template_version="3.6">
     <requirements>
+        <requirement type="package" version="0.0.5">fragalysis</requirement>
         <requirement type="package" version="1.21.2">htmd</requirement>
-        <requirement type="package" version="0.2.8">moleculekit</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         #if $license_check
@@ -24,6 +24,7 @@
             #if $mindist
             -mindist $mindist
             #end if
+            -outdir buildout
         #end if
     ]]></command>
     <inputs>
@@ -35,19 +36,19 @@
         <param name="license_check" type="select" label="I accept the license conditions (https://software.acellera.com/news/license.pdf) and declare that I will not use this app for profit purposes.">
           <option value="false">I do not accept</option>
           <option value="true">I accept</option>
-          <validator type="regex" message="You must accept the conditions first.">not</validator>
+          <validator type="expression" message="You must accept the conditions first.">'fal' not in value</validator>
         </param>
     </inputs>
     <outputs>
-        <data name="struct_pdb" format="pdb" from_work_dir="build_1/structure.pdb" />
-        <data name="struct_prmtop" format="prmtop" from_work_dir="build_1/structure.prmtop" />
+        <data name="struct_pdb" format="pdb" from_work_dir="buildout/build_1/structure.pdb" />
+        <data name="struct_prmtop" format="prmtop" from_work_dir="buildout/build_1/structure.prmtop" />
     </outputs>
     <tests>
         <test>
             <param name="protein_pdb" value="input.pdb"/>
+            <param name="license_check" value="true"/>
             <param name="ligand" value="mol-orig.mol2"/>
             <param name="ligfrcmod" value="mol.frcmod"/>
-            <param name="license_check" value="true"/>
             <output name="struct_prmtop" file="structure.prmtop" compare="sim_size"/>
             <output name="struct_pdb" file="structure.pdb" compare="sim_size"/>
         </test>
