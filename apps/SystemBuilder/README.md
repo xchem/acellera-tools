@@ -11,3 +11,19 @@ You should then be able to navigate to http://127.0.0.0:8080/ and run SystemBuil
 Running these commands with a conda environment activated can cause problems, even if it is the "base" environment. Planemo must be installed out of any conda environment.
 
 
+To run locally:
+
+```conda env create -f environment.yml```, activate the environment, and then copy the files of the protonated protein and parameterized ligand to a folder:
+
+
+```
+mkdir build_protlig_system
+cp ../ProteinPreparation/output.pdb build_protlig_system/
+cp ../Parameterization/parameters/GAFF2/mol-orig.mol2 build_protlig_system/
+cp ../Parameterization/parameters/GAFF2/mol.frcmod build_protlig_system/
+```
+
+now, you can run systembuilder to get the files needed tu run MD simulation.
+
+
+```python app.py -protein build_protlig_system/output.pdb -ligand build_protlig_system/mol-orig.mol2 -ligfrcmod build_protlig_system/mol.frcmod -outdir ready2MD```

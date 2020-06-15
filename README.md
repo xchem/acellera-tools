@@ -31,7 +31,7 @@ binders and non-binders to predict a probability/score given some new list of li
 
 In order to test the applications, a conda environment must be created using the provided environment.yml files
 inside each app, using ```conda env create -f environment.yml```. Then, after activating the environment,
-the appropiate tests can be run using the provided .sh scripts.
+the appropiate tests can be run using planemo or running the commands especified in each README file.
 
 <a name="protprep"></a>
 ## 2. Protein preparation tool (MD)
@@ -76,6 +76,9 @@ Journal of chemical theory and computation, 12(4), 1845-1852.
 The application present at `MDSimulator/app.py` represents a wrapper over the `acemd` MD simulation engine plus a short
 script to analyze the stability of the protein-ligand complex in terms of RMSD over the simulation. For more information 
 over the options available please run `MDSimulator/app.py --help`.
+
+
+A simple protein-ligand MD protocol example is included. The protocol starts protonating and preparing a crystalographic structure (3PTB, which we filtered to remove non protein atoms: apps/ProteinPreparation/test-data/pipeline_protlig.pdb) using the protein preparation tool. Then, we parameterize the native ligand of 3PTB (apps/Parameterization/test-data/pipeline_protlig.mol2) using the Parameterize tool. The outputs of these two tasks are then passed to SystemBuilder, which creates a protein-ligand complex ready to run molecular dynamics. Finally, this complex is passed to the MDsimulation tool to run a simulation. Instructions on how to run all these steps can be found inside each app's README file.
 
 _References:_
 ```
