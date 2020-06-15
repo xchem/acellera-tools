@@ -33,7 +33,7 @@
         <param type="data" name="ligfrcmod" format="frcmod" optional="true"/>
         <param name="saltconc" type="float" value="0.0" optional="true" label="The salt concentration in molar (M)"/>
         <param name="mindist" type="float" value="0.0" optional="true" label="Additional water padding to add to the system"/>
-        <param name="license_check" type="select" label="I accept the license conditions (https://software.acellera.com/news/license.pdf) and declare that I will not use this app for profit purposes.">
+        <param name="license_check" type="select" label="This software is for not-for-profit use, in case of doubt please contact info@acellera.com. I hereby accept the license of use (https://github.com/Acellera/htmd/blob/master/HTMD_LICENCE.txt)">
           <option value="false">I do not accept</option>
           <option value="true">I accept</option>
           <validator type="expression" message="You must accept the conditions first.">'fal' not in value</validator>

@@ -16,4 +16,6 @@ To test locally, install the environment with conda:
 
 and the run:
 
-```python app.py test-data/input.csv --validate --hp_trials 5```
+```python app.py test-data/input.csv --train --validate --hp_trials 5```
+
+to obtain a trained model and some statistics, available in the .log file.

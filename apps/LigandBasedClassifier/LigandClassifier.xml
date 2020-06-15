@@ -126,7 +126,7 @@
         <param name="hp_trials" type="integer" value="5" optional="true" label="Number of hyperparameter (hp) search rounds. Default is 100"/>
         <param name="opt_metric" type="text" value="map" optional="true" label="Metric to optimize by HP tuning. See eval_metric in https://xgboost.readthedocs.io/en/latest/parameter.html"/>
 
-        <param name="license_check" type="select" label="I accept the license conditions (https://software.acellera.com/news/license.pdf) and declare that I will not use this app for profit purposes.">
+        <param name="license_check" type="select" label="This software is for not-for-profit use, in case of doubt please contact info@acellera.com. I hereby accept the license of use (https://github.com/Acellera/htmd/blob/master/HTMD_LICENCE.txt)">
           <option value="false">I do not accept</option>
           <option value="true">I accept</option>
           <validator type="expression" message="You must accept the conditions first.">'fal' not in value</validator>

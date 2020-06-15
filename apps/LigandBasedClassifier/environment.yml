@@ -3,6 +3,8 @@ channels:
   - rdkit
   - conda-forge
   - defaults
+  - acellera
+  - psi4
 dependencies:
   - fragalysis=0.0.5
   - _libgcc_mutex=0.1=conda_forge
