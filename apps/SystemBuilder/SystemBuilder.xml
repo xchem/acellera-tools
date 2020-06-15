@@ -63,8 +63,6 @@
     <help><![CDATA[
 Creates a protein or protein-ligand system to go trough MD simulation.
 
-Check license conditions at: https://software.acellera.com/news/license.pdf
-
 A .pdb file of the protein to simulate has to be provided. The protein must be prepared, you can use ProteinPrepare.
 
 If you want to build a protein-ligand system, you also need to provide a .mol2 and a .frcmod file for the ligand. You can generate the later with the Parameterization tool.

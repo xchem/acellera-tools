@@ -70,8 +70,6 @@
 
 Performs a simple MD simulation to a protein or protein-ligand system.
 
-Check license conditions at: https://software.acellera.com/news/license.pdf
-
 The .pdb file and the .prmtop file of the built system must be provided.
 
 First, an equilibration step is run for the time specified.

@@ -124,8 +124,6 @@
 Prepare a protein for MD simulations using PROPKA 3.1 for residue titration
 and PDB2PQR 2.1 to optimize the hydrogen bond network. 
 
-Check license conditions at: https://software.acellera.com/news/license.pdf
-
 This application adds apropiate hydrogens to a protein provided in .pdb format.
 
 You can set the pH at which residues will be titrated (default: 7.2)

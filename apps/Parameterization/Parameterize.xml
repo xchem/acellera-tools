@@ -182,12 +182,15 @@
         </test>
     </tests>
     <help><![CDATA[
-    Generates a .frcmod file for a given molecule provided as .mol2 file. This .frcmod file can be then used to build a ligand-protein system and run MD simulations.
-        
 
-    Check license conditions at: https://software.acellera.com/news/license.pdf
+    Small molecules need to be parameterized in order to run molecular dynamics simulations. Partial charges need to be assigned to each atom, and the energy potential of the molecule (bond length, bond angle and dihedral angle) has to be defined to run proper MD (see http://ambermd.org/antechamber/gaff.html for a more detailed explanation). 
 
-    A molecule in mol2 file format must be provided. The global charge can be also especified as an integer. If left empty, the sum of partial charges will be used.
+    Given a .mol2 file, Parameterize provides such parameters (as a .frcmod file) by using the antechamber tool (http://ambermd.org/antechamber/ac.html) and Gasteiger partial atomic charges.
+
+    This .frcmod file can be then used to build a ligand-protein system and run MD simulations.
+
+    A molecule in .mol2 file format must be provided. The global charge can be also especified as an integer. If left empty, the sum of partial charges will be used.
+
 
     ]]></help>
 

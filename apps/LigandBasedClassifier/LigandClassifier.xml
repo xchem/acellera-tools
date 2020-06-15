@@ -162,8 +162,6 @@
 
 Trains a model based on a csv file of binders and not binders, or, if given a trained model, predicts the probability of binding for each smiles in the .csv file.
 
-Check license conditions at: https://software.acellera.com/news/license.pdf
-
 3 modes are available: Train, Validation and Predict. Validation is the same as Train but with more verbose logging. 
 
 Hyperparameter search is available, and the number of rounds of "searching" can be set by the user. The metric to optimize can be chosen among: map(mean average precision), auc(area under the curve), aucpr(area under precision-recall curve) or any other metric supported by XGBoost(https://xgboost.readthedocs.io/en/latest/parameter.html).
