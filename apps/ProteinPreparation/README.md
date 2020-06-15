@@ -14,5 +14,5 @@ To run locally:
 
 ```conda env create -f environment.yml```, activate the environment, and then run:
 
-
-```python app.py -pdb test-data/3ptb.pdb```
+```python app.py -pdb test-data/pipeline_protlig.pdb -outdir prepared_prot```
+to protonate the protein that we will use to test the protein-ligand MD protocol.

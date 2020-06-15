@@ -10,3 +10,15 @@ You should then be able to navigate to http://127.0.0.0:8080/ and run Parameteri
 
 Running these commands with a conda environment activated can cause problems, even if it is the "base" environment. Planemo must be installed out of any conda environment.
 
+To run Parameterize locally, first, create and activate the environment:
+
+```conda env create -f environment.yml```
+
+and then run:
+
+```parameterize --no-dihed --charge-type Gasteiger --seed 01 test-data/pipeline_protlig.mol2```
+
+to parameterize the ligand molecule that we will use in our protein-ligand protocol.
+
+
+
