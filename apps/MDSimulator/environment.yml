@@ -5,7 +5,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - fragalysis=0.0.5
+  - fragalysis=2.1
   - _libgcc_mutex=0.1=conda_forge
   - _openmp_mutex=4.5=0_gnu
   - acemd3=3.2.3=cuda100_0
